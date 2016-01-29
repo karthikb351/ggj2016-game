@@ -20,36 +20,42 @@ public class ShiftBehaviorScript : MonoBehaviour {
 				sr.enabled = !invisible;
 			if (sr.tag == "VisibleSprite")
 				sr.enabled = invisible;
-		}	
+		}
+		foreach (var c in GetComponentsInChildren<Collider2D>()) {
+			c.isTrigger = !invisible;
+			c.GetComponentInChildren<ColliderCollisionCheck> ().state = state;
+		}
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
         int worldState = GameObject.FindObjectOfType<GlobalScript>().currentWorldState;
-        if(worldState==state)
-        {
+		if (worldState == state) {
 			foreach (var sr in GetComponentsInChildren<SpriteRenderer>()) {				
-				if(sr.tag == "HiddenSprite")
+				if (sr.tag == "HiddenSprite")
 					sr.enabled = false;
-				if(sr.tag == "VisibleSprite")
+				if (sr.tag == "VisibleSprite")
 					sr.enabled = true;
 			}	
-            GetComponentInChildren<Collider2D>().enabled = true;
-        }
-        else
-        {
+			foreach (var c in GetComponentsInChildren<Collider2D>()) {
+				c.isTrigger = false;
+				c.GetComponentInChildren<ColliderCollisionCheck> ().state = state;
+			}
+		} else if (GameObject.FindObjectOfType<GlobalScript> ().allowWorldStateShifts.Count==0) {
 			foreach (var sr in GetComponentsInChildren<SpriteRenderer>()) {
-				if(sr.tag == "HiddenSprite")
+				if (sr.tag == "HiddenSprite")
 					sr.enabled = true;
-				if(sr.tag == "VisibleSprite")
+				if (sr.tag == "VisibleSprite")
 					sr.enabled = false;
-			}	
-            GetComponentInChildren<Collider2D>().enabled = false;
-        }
+			}
+			foreach (var c in GetComponentsInChildren<Collider2D>()) {
+				c.isTrigger = true;
+				c.GetComponentInChildren<ColliderCollisionCheck> ().state = state;
+			}
+		} else {
+		}
 	}
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        Debug.Log("Collision");
-    }
+
 }
