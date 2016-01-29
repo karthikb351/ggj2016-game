@@ -15,7 +15,12 @@ public class ShiftBehaviorScript : MonoBehaviour {
         {
             invisible = true;
         }
-        GetComponentInChildren<SpriteRenderer>().enabled = invisible;
+		foreach (var sr in GetComponentsInChildren<SpriteRenderer>()) {
+			if(sr.tag == "HiddenSprite")
+				sr.enabled = !invisible;
+			if (sr.tag == "VisibleSprite")
+				sr.enabled = invisible;
+		}	
 	}
 	
 	// Update is called once per frame
@@ -23,12 +28,22 @@ public class ShiftBehaviorScript : MonoBehaviour {
         int worldState = GameObject.FindObjectOfType<GlobalScript>().currentWorldState;
         if(worldState==state)
         {
-            GetComponentInChildren<SpriteRenderer>().enabled = true;
+			foreach (var sr in GetComponentsInChildren<SpriteRenderer>()) {				
+				if(sr.tag == "HiddenSprite")
+					sr.enabled = false;
+				if(sr.tag == "VisibleSprite")
+					sr.enabled = true;
+			}	
             GetComponentInChildren<Collider2D>().enabled = true;
         }
         else
         {
-            GetComponentInChildren<SpriteRenderer>().enabled = false;
+			foreach (var sr in GetComponentsInChildren<SpriteRenderer>()) {
+				if(sr.tag == "HiddenSprite")
+					sr.enabled = true;
+				if(sr.tag == "VisibleSprite")
+					sr.enabled = false;
+			}	
             GetComponentInChildren<Collider2D>().enabled = false;
         }
 	}
