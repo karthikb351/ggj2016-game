@@ -4,6 +4,7 @@ using System.Collections;
 public class GlobalScript : MonoBehaviour {
 
     public int currentWorldState = 0;
+	public int denyWorldStateShift = 0;
 	// Use this for initialization
 	void Start () {
 	
