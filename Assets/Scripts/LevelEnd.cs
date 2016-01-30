@@ -9,6 +9,10 @@ namespace UnityStandardAssets._2D
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (other.tag == "Ball") {
+                DataSave.SaveData(new PlayerData()
+                {
+                    currentLevel = 2
+                });
 				Application.LoadLevel (2);
 			}
 		}
