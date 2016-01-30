@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GlobalScript : MonoBehaviour {
 
@@ -19,6 +20,10 @@ public class GlobalScript : MonoBehaviour {
 				currentWorldState = (currentWorldState == 0) ? 1 : 0;
 			else
 				Debug.Log ("Denied");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
         }
 	}
 }
