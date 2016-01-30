@@ -19,7 +19,7 @@ public class EndGame : MonoBehaviour {
 
         if (coll.tag == "Player")
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
