@@ -19,7 +19,9 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-
+        private bool isAudioPlaying = false;
+        private int currentClip = 0;
+        public AudioSource[] audioClips;
         private void Awake()
         {
             // Setting up references.
@@ -67,6 +69,16 @@ namespace UnityStandardAssets._2D
             //only control the player if grounded or airControl is turned on
             if (m_Grounded || m_AirControl)
             {
+                //Play Audio
+                if(m_Grounded && move!=0)
+                {
+                    if(!audioClips[currentClip].isPlaying)
+                    {
+                        currentClip = UnityEngine.Random.Range(0, 3);
+                        audioClips[currentClip].Play();
+                        isAudioPlaying = true;
+                    }
+                }
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 move = (crouch ? move*m_CrouchSpeed : move);
 
