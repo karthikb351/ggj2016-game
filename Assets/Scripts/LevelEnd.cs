@@ -13,7 +13,7 @@ namespace UnityStandardAssets._2D
                 {
                     currentLevel = 2
                 });
-				Application.LoadLevel (2);
+				SceneManager.LoadScene(2);
 			}
 		}
 	}
