@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ResumeController : MonoBehaviour {
 
@@ -15,7 +16,8 @@ public class ResumeController : MonoBehaviour {
 
     public void loadLevel()
     {
-        Application.LoadLevel(levelToLoad);
+        var data = DataSave.LoadData();
+        SceneManager.LoadScene(data.currentLevel);
     }
 	// Update is called once per frame
 	void Update () {
